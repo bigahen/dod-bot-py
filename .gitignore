@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#VS Cpde
-.code-workspace
+#VS Code
+*.code-workspace
