@@ -14,10 +14,10 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 class DodClient(discord.Client):
 
     localAudioCommands = {
-        'radio': 'audio/radio.mp3',
-        'cool': 'audio/cool.m4a',
-        'no!': 'audio/no.mp3',
-        'you\'re fired': 'audio/fired.mp3'
+        'radio': 'src/audio/radio.mp3',
+        'cool': 'src/audio/cool.m4a',
+        'no!': 'src/audio/no.mp3',
+        'you\'re fired': 'src/audio/fired.mp3'
     }
 
     async def _join_and_play(self, author: Member):
@@ -36,7 +36,7 @@ class DodClient(discord.Client):
         joined_channel.play(discord.FFmpegPCMAudio(source=to_play))
         #player = joined_channel.create_ffmpeg_player(to_play, after=lambda : print("Finished Playing Audio"))
         #joined_channel.start()
-        while not joined_channel.is_playing():
+        while joined_channel.is_playing():
             await asyncio.sleep(.1)
         await joined_channel.disconnect()
 
