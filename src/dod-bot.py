@@ -30,7 +30,7 @@ class DodClient(discord.Client):
         voice_channel = author.voice
 
         if voice_channel == None:
-            # TODO implement a way to respond to the user to join a channel for this command
+            await message.channel.send('You need to be in a channel to send a message 🙂')
             return 
  
         to_play = self.localAudioCommands[message.content.lower()]
