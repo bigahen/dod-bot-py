@@ -1,7 +1,7 @@
 import os
 
 import discord
-from discord import Member
+from discord import Message
 from discord import VoiceChannel
 import string
 import asyncio
@@ -20,7 +20,10 @@ class DodClient(discord.Client):
         'you\'re fired': 'src/audio/fired.mp3'
     }
 
-    async def _join_and_play(self, author: Member):
+    async def _join_and_play(self, message: Message):
+        
+        author = message.author
+
         if author == None:
             return
 
@@ -30,7 +33,7 @@ class DodClient(discord.Client):
             # TODO implement a way to respond to the user to join a channel for this command
             return 
  
-        to_play = self.localAudioCommands['radio'] #TODO need to pass in the message
+        to_play = self.localAudioCommands[message.content.lower()]
 
         joined_channel = await voice_channel.channel.connect()
         joined_channel.play(discord.FFmpegPCMAudio(source=to_play))
@@ -63,7 +66,7 @@ class DodClient(discord.Client):
 
         #Check is message is in audio commands
         if m.lower() in self.localAudioCommands.keys():
-            await self._join_and_play(message.author)
+            await self._join_and_play(message)
     
 
 if __name__ == "__main__":
